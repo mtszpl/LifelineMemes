@@ -65,7 +65,7 @@ export const useGetMemes = () => {
 
 export const useGetOneMeme = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
-    const [firestore, setFirestore] = useState<Firestore>(getFirestore(firebase))
+    const [firestore, ] = useState<Firestore>(getFirestore(firebase))
     const [meme, setMeme] = useState<{
         id: number
         title: string
@@ -107,7 +107,7 @@ export const useGetOneMeme = () => {
 
 export const useUploadMeme = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
-    const [firestore, setFirestore] = useState<Firestore>(getFirestore(firebase))
+    const [firestore,] = useState<Firestore>(getFirestore(firebase))
 
     const uploadMeme = (
         title: string,
@@ -117,7 +117,7 @@ export const useUploadMeme = () => {
         pushImageToMemeStore(dataLink, (newLink: string) => {
             addDoc(collection(firestore, "Memes"), {
                 Title: title,
-                clearTitle: title.replace(/[^\w\s\']|_/g, "")
+                clearTitle: title.replace(/[^\w\s']|_/g, "")
                     .replace(/\s+/g, "-"),
                 dataLink: "gs://memepageproject-5dadd.appspot.com/" + newLink,
                 author: author,

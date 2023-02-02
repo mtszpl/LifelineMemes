@@ -24,6 +24,7 @@ export default function CommentDisplay({ authorName, content }: Props) {
     <Box bgcolor={colors.primary[800]} display="flex" mb="2em">
       <Box onClick={() => reroute(`/profilemanagement/${authorName}`)}>
         <img
+          alt='author-profile-pic'
           width="50em"
           height="50em"
           style={{ margin: "0 2em 0 2em" }}

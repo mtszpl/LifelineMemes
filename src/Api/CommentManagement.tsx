@@ -7,7 +7,7 @@ import { useGetUserById } from "./UserManagement"
 
 export const useUploadComment = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
-    const [firestore, setFirestore] = useState<Firestore>(getFirestore(firebase))
+    const [firestore,] = useState<Firestore>(getFirestore(firebase))
 
     const uploadComment = async (author: string, commentedPost: string, content: string) => {
         const userData: CollectionReference<DocumentData> = collection(firestore, "/Users")
@@ -27,8 +27,8 @@ export const useUploadComment = () => {
 
 export const useGetComments = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
-    const [firestore, setFirestore] = useState<Firestore>(getFirestore(firebase))
-    const [author, getAuthor] = useGetUserById()
+    const [firestore,] = useState<Firestore>(getFirestore(firebase))
+    const [, getAuthor] = useGetUserById()
     const [commentArray, setComments] = useState<{
         author: string
         commentedPost: string

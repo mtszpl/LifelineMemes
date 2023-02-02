@@ -1,12 +1,9 @@
 import { Box, Button, TextField, Typography, useTheme } from '@mui/material'
 import { ChangeEvent, ChangeEventHandler, useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { UserContext, useUpdateUser } from '../Api/UserManagement'
 import { tokens } from '../Theme'
 
-type Props = {}
-
-export default function ProfileSettings({ }: Props) {
+export default function ProfileSettings() {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
@@ -18,7 +15,6 @@ export default function ProfileSettings({ }: Props) {
     const [newProfileImg, setNewProfileImg] = useState<File>()
 
     const updateUser = useUpdateUser()
-    const reroute = useNavigate()
 
     const changeCurrentUsername: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement> = (e) => {
         setNewUserName(e.currentTarget.value)
@@ -41,9 +37,7 @@ export default function ProfileSettings({ }: Props) {
                     role: newUser.role
                 }
             )
-            console.log(newUser)
         })
-        // reroute(`/profilemanagement/${loggedUser.username}`)
     }
 
     return (

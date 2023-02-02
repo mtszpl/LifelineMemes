@@ -40,8 +40,8 @@ export default function CreateUser({ onUserCreateCallback }: Props) {
     return (
         <Box display="flex" flexDirection="column" alignItems="center" width="50%">
             <TextField defaultValue={username} label="Username" sx={{ width: "100%", m: "1em" }} onChange={handleUserChange} />
-            <TextField defaultValue={password} label="Password" sx={{ width: "100%", m: "1em" }} onChange={handlePasswordChange} />
-            <TextField defaultValue={repeatedPassword} label="Repeat Password" sx={{ width: "100%", m: "1em" }} onChange={handleRepeatedPasswordChange} />
+            <TextField defaultValue={password} type="password" label="Password" sx={{ width: "100%", m: "1em" }} onChange={handlePasswordChange} />
+            <TextField defaultValue={repeatedPassword} type="password" label="Repeat Password" sx={{ width: "100%", m: "1em" }} onChange={handleRepeatedPasswordChange} />
             <Button
                 sx={{
                     width: "10em",

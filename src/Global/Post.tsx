@@ -28,18 +28,11 @@ export default function Post(props: Props) {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const [author, updateAuthor] = useGetUser()
-    // const [author, setAuthor] = useState<{
-    //     username: string,
-    //     profileImg: string
-    // }>({
-    //     username: "",
-    //     profileImg: ""
-    // })
 
     useEffect(() => {
         let nClearTitle: string = ""
         if (props.title !== undefined && props.clearTitle === undefined)
-            nClearTitle = props.title.replace(/[^\w\s\']|_/g, "")
+            nClearTitle = props.title.replace(/[^\w\s']|_/g, "")
                 .replace(/\s+/g, "-")
         setPostData({
             id: props.id,
@@ -59,6 +52,7 @@ export default function Post(props: Props) {
             <Box mr="1%">
                 <Link to={`/profilemanagement/${postData.authorName}`}>
                     <img
+                        alt='author-profile-pic'
                         height="50em"
                         width="50em"
                         src={author.profileImg}

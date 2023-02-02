@@ -37,6 +37,7 @@ export default function UserComponent({ onLogoutCallback }: Props) {
                                 {user.username}
                             </Typography>
                             <img
+                                alt="user-profile-img"
                                 width="50em"
                                 height="50em"
                                 src={user.profileImg}

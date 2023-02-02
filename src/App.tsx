@@ -62,8 +62,7 @@ function App() {
                   <Route path="/:id/:title" element={<MemeView />} />
                   <Route path="/login" element={<Login onLoginCallback={handleLogin} />} />
                   <Route path="/createuser" element={<CreateUser onUserCreateCallback={handleCreateUser} />} />
-                  <Route path="/profilemanagement/:username" element={<UserDashboard
-                    user={currentUser.username} profileImg={currentUser.profileImg} role={currentUser.role}/>} />
+                  <Route path="/profilemanagement/:username" element={<UserDashboard/>} />
                   <Route path="/creator" element={<MemeCreate author={currentUser.username}/>} />
                   <Route path='*' element={<Page404/>}/>
                 </Routes>

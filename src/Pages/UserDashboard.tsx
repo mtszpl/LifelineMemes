@@ -7,13 +7,8 @@ import Post from '../Global/Post'
 import { useGetUser, UserContext } from '../Api/UserManagement'
 import ProfileSettings from '../Components/ProfileSettings'
 
-type Props = {
-    user: string,
-    profileImg: string,
-    role: string
-}
 
-export default function UserDashboard({ }: Props) {
+export default function UserDashboard() {
     
     const { username } = useParams()
 
@@ -22,7 +17,7 @@ export default function UserDashboard({ }: Props) {
     const [owner, updateOwner] = useGetUser()
     const [memes, setMemes] = useGetMemes()
 
-    useEffect(() => { updateOwner(username!); setMemes(username) }, [username])
+    useEffect(() => { updateOwner(username!); setMemes(username) }, [username, updateOwner, setMemes])
 
     return (
         <Box display="flex" flexDirection="column" width="80%" alignItems="center">
@@ -32,8 +27,9 @@ export default function UserDashboard({ }: Props) {
                     <Box display="flex" flexDirection="column" alignItems="center">
                         <Box display="flex" justifyContent="space-between" width="50%" m="2em">
                             <img
-                                width="100vh"
-                                height="100vh"
+                                alt='user-profile-pic'
+                                width="100em"
+                                height="100em"
                                 src={owner.profileImg}
                             />
                             <Box display="flex" flexDirection="column" mx="2em">

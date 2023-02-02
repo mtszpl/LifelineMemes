@@ -16,8 +16,8 @@ export default function Login({ onLoginCallback }: Props) {
     const [userName, setUserName] = useState<string>("")
     const [password, setPassword] = useState<string>("")
 
-    const [userRole, logIn] = useLogIn()
-    const [user, setUser] = useState({ username: "", profileImg: "", role: "UNLOGGED" })
+    const [, logIn] = useLogIn()
+    const [, setUser] = useState({ username: "", profileImg: "", role: "UNLOGGED" })
     const reroute = useNavigate()
 
     const handleClick = (e: any) => {
@@ -45,7 +45,7 @@ export default function Login({ onLoginCallback }: Props) {
     return (
         <Box display="flex" flexDirection="column" alignItems="center" width="50%">
             <TextField defaultValue={userName} label="Username" sx={{ width: "100%", m: "1em" }} onChange={handleUserChange} />
-            <TextField defaultValue={password} label="Password" sx={{ width: "100%", m: "1em" }} onChange={handlePasswordChange} />
+            <TextField defaultValue={password} type="password" label="Password" sx={{ width: "100%", m: "1em" }} onChange={handlePasswordChange} />
             <Box
                 sx={{
                     display: "flex",
@@ -78,8 +78,4 @@ export default function Login({ onLoginCallback }: Props) {
             </Box>
         </Box>
     )
-}
-
-function sleep(arg0: number) {
-    throw new Error('Function not implemented.');
 }

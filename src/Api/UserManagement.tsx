@@ -84,8 +84,6 @@ export const useGetUserById = () => {
     const [gotUser, setGotUser] = useState({ username: undefined, profileImg: undefined })
 
     const updateGotUser = (id: string, callback?: Function) => {
-        const userData: CollectionReference<DocumentData> = collection(firestore, "/Users")
-        const q: Query<DocumentData> = query(userData, where("DocumentId", "==", id))
         const docRef = doc(firestore, "Users", id)
         return getDoc(docRef).then((data) => {
             const newData = data.data()

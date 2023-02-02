@@ -12,7 +12,7 @@ type Props = {
 }
 
 export default function MemeView(props: Props) {
-  const { id, title } = useParams()
+  const { title } = useParams()
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
