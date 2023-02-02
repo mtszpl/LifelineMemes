@@ -18,16 +18,22 @@ export default function Topbar({ onLogoutCallback }: Props) {
   return (
     <AppBar position="sticky">
       <Box display="flex" justifyContent="space-evenly" alignItems="center" height="5em" bgcolor={colors.primary[900]}>
-        <Box display="flex" gap="2em" justifyContent="flex-start" alignItems="center">
-          <Link to="/">
-            <Typography variant="h3" color={colors.white[200]}>Meme site</Typography>
-          </Link>
-        </Box>
+        <Link to="/">
+          <Box display="flex" gap="2em" justifyContent="flex-start" alignItems="center">
+            <img
+              // alt="logo" 
+              src="../Assets/lifelineMemeLogo.png"
+              width="50em"
+              height="50em"
+            />
+            <Typography variant="h3" color={colors.white[200]}>Lifeline Memes</Typography>
+          </Box>
+        </Link>
         <Box m="5%" display="flex" justifyContent="flex-end">
           <IconButton>
             <NotificationsIcon />
           </IconButton>
-          <UserComponent onLogoutCallback={onLogoutCallback}/>
+          <UserComponent onLogoutCallback={onLogoutCallback} />
         </Box>
       </Box>
     </AppBar>
