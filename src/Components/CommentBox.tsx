@@ -42,7 +42,7 @@ export default function CommentBox({ title, onPostCallback }: Props) {
         <Box display="flex" flexDirection="column" alignItems="stretch" m="2em" gap="2em">
             <Box display="flex" alignSelf="center" width="80%" gap="2%">
                 <img
-                    alt='current-user-profile-pic'
+                    // alt='current-user-profile-pic'
                     width="50px"
                     height="50px"
                     src={user.profileImg}
