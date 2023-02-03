@@ -26,7 +26,7 @@ export default function UserComponent({ onLogoutCallback }: Props) {
         }}>
             {user.role === "UNLOGGED" ?
                 (
-                    <Link to="/login">
+                    <Link style={{ textDecoration:"none" }} to="/login">
                         <IconButton type="button"
                             sx={{
                                 backgroundColor: colors.red[500],

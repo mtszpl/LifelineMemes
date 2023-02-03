@@ -35,9 +35,9 @@ export default function Topbar({ onLogoutCallback }: Props) {
           </Box>
         </Link>
         <Box m="5%" display="flex" justifyContent="flex-end">
-          <IconButton>
+          {/* <IconButton>
             <NotificationsIcon />
-          </IconButton>
+          </IconButton> */}
           <UserComponent onLogoutCallback={onLogoutCallback} />
         </Box>
       </Box>
