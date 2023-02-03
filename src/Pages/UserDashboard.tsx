@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography'
 import { useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetMemes } from '../Api/MemeManagement'
-import Post from '../Global/Post'
+import Post from '../Components/Post'
 import { useGetUser, UserContext } from '../Api/UserManagement'
 import ProfileSettings from '../Components/ProfileSettings'
 

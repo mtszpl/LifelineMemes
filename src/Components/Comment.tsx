@@ -23,10 +23,13 @@ export default function Comment({ authorName, content }: Props) {
   return (
     <Box bgcolor={colors.primary[800]} display="flex" mb="2em">
       <Box onClick={() => reroute(`/profilemanagement/${authorName}`)}>
-        <img
+        <Box
+          component="img"
           alt='author-profile-pic'
-          width="50em"
-          height="50em"
+          sx={{
+            width: { xs: 30, sm: 35, md: 50 },
+            height: { xs:30, sm: 35, md: 50 },
+          }}
           style={{ margin: "0 2em 0 2em" }}
           src={author.profileImg}
         />

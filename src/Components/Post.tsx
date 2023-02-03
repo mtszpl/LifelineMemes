@@ -1,4 +1,4 @@
-import { Typography, useTheme } from '@mui/material'
+import { Paper, Typography, useTheme } from '@mui/material'
 import { Box } from '@mui/system'
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
@@ -48,32 +48,46 @@ export default function Post(props: Props) {
 
 
     return (
-        <Box display="flex" sx={{ cursor: "pointer" }} my="1%" justifyContent="center">
-            <Box mr="1%">
-                <Link to={`/profilemanagement/${postData.authorName}`}>
-                    <img
-                        alt='author-profile-pic'
-                        height="50em"
-                        width="50em"
-                        src={author.profileImg}
-                    />
-                </Link>
-            </Box>
-            <Box display="flex" flexDirection="column" alignItems="stretch" gap="1vh">
+        <Box display="flex" my="1%" alignContent="center" bgcolor="blue"
+            sx={{
+                width: { sm: '100%', md: 0.9 },
+            }}>
+            <Link to={`/profilemanagement/${postData.authorName}`}>
+                <Box
+                    component="img"
+                    alt='author-profile-pic'
+                    sx={{
+                        height: "10%",
+                        width: "10%",
+                    }}
+                    src={author.profileImg}
+                />
+            </Link>
+            <Box display="flex" flexDirection="column" alignItems="stretch" gap="1vh"
+                sx={{
+                    width: "100%",
+                    maxWidth: 750,
+                    cursor: "pointer"
+                }}
+            >
                 <Link style={{ textDecoration: "none", color: "inherit" }} to={`/${postData.id}/${postData.clearTitle}`}>
-                    <Box bgcolor={colors.indigo[900]}>
+                    <Box bgcolor={colors.indigo[900]} sx={{ cursor: "pointer" }}>
                         <Typography variant='h2'>{postData.title}</Typography>
                     </Box>
                 </Link>
                 <Link style={{ textDecoration: "none", color: "inherit" }} to={`/profilemanagement/${postData.authorName}`}>
-                    <Box bgcolor={colors.indigo[900]}>
+                    <Box bgcolor={colors.indigo[900]} sx={{ cursor: "pointer" }}>
                         <Typography variant='h6'>{postData.authorName}</Typography>
                     </Box>
                 </Link>
                 <Link to={`/${postData.id}/${postData.clearTitle}`}>
-                    <img
-                        width="750em"
-                        // height="750em"
+                    <Box
+                        component="img"
+                        sx={{
+                            width: "100%",
+                            maxWidth: 750,
+                            cursor: "pointer"
+                        }}
                         alt={postData.title}
                         src={postData.dataLink}
                     />

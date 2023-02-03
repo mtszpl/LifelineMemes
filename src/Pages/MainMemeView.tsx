@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useGetMemes } from '../Api/MemeManagement'
-import Post from '../Global/Post'
+import Post from '../Components/Post'
 import { UserContext } from '../Api/UserManagement'
 import { tokens } from '../Theme'
 

@@ -20,11 +20,13 @@ export default function Topbar({ onLogoutCallback }: Props) {
       <Box display="flex" justifyContent="space-evenly" alignItems="center" height="5em" bgcolor={colors.primary[900]}>
         <Link style={{textDecoration: "none"}} to="/">
           <Box display="flex" gap="2em" justifyContent="flex-start" alignItems="center">
-            <img
-              // alt="logo" 
+            <Box
+              component="img"
               src="../Assets/lifelineMemeLogo.png"
-              width="50em"
-              height="50em"
+              sx={{
+                height: { xs: 20, sm: 25, md: 50},
+                width: { xs: 20, sm: 25, md: 50},
+            }}
             />
             <Typography variant="h3" color={colors.white[200]}>Lifeline Memes</Typography>
           </Box>

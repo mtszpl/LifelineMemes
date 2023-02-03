@@ -40,11 +40,19 @@ export default function CommentBox({ title, onPostCallback }: Props) {
 
     return (
         <Box display="flex" flexDirection="column" alignItems="stretch" m="2em" gap="2em">
-            <Box display="flex" alignSelf="center" width="80%" gap="2%">
-                <img
+            <Box sx={{
+                display: "flex",
+                alignSelf: "center",
+                width: { sm: '100%', md: '80%'},
+                gap: "2%"
+            }}>
+                <Box
+                    component="img"
                     // alt='current-user-profile-pic'
-                    width="50px"
-                    height="50px"
+                    sx={{
+                        width: { xs: 30, sm: 35, md: 50 },
+                        height: { xs: 30, sm: 35, md: 50 },
+                    }}
                     src={user.profileImg}
                 />
                 <TextField

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import CommentBox from '../Components/CommentBox'
 import { useGetOneMeme } from '../Api/MemeManagement'
-import Post from '../Global/Post'
+import Post from '../Components/Post'
 import { tokens } from '../Theme'
 import { useGetComments } from '../Api/CommentManagement'
 import Comment from '../Components/Comment'
@@ -52,16 +52,18 @@ export default function MemeView(props: Props) {
     })
 
     updateComments(title!, (arr: any) => {
-      console.log(arr);
       setComments(arr)
-      console.log(comments);
       setCanShowMemes(true)
     }
     )
   }, [])
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="stretch" width="75%">
+    <Box display="flex" flexDirection="column" alignItems="stretch"
+      sx={{
+        width: { xm: 1, md: 3/4 }
+      }}
+    >
       {(meme !== undefined && meme.authorName !== undefined) && (
         <Post id={Number(meme!.id)} title={meme!.title} clearTitle={meme!.title} dataLink={meme!.dataLink} authorName={meme!.authorName}
           timestamp={meme.timestamp === undefined ? meme!.id : meme.timestamp} />

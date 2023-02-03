@@ -21,25 +21,41 @@ export default function UserComponent({ onLogoutCallback }: Props) {
     }
 
     return (
-        <Box>
+        <Box sx={{
+            width: { sm: 75, md: 250 },
+        }}>
             {user.role === "UNLOGGED" ?
                 (
                     <Link to="/login">
                         <IconButton type="button"
-                            sx={{ backgroundColor: colors.red[500], borderRadius: "3px", margin: "2%", minWidth: "100px" }}>
+                            sx={{
+                                backgroundColor: colors.red[500],
+                                borderRadius: "3px",
+                                margin: "2%",
+                                height: { sm: 35, md: 50 },
+                                width: { sm: 75, md: 100 },
+                                //    minWidth: "100px"
+                            }}>
                             Log In
                         </IconButton>
                     </Link>) :
                 (
-                    <Box display="flex" alignItems="center" gap="1%" >
-                        <Box display="flex" sx={{cursor: "pointer"}} onClick={handleLoggedClick} alignItems="center">
+                    <Box display="flex" alignItems="center" gap="1%">
+                        <Box display="flex" sx={{
+                            cursor: "pointer",
+                            height: { sm: 35, md: 50 },
+                            // width: { sm: 50, md: 100 },
+                        }} onClick={handleLoggedClick} alignItems="center">
                             <Typography variant="h3" mr="1em">
                                 {user.username}
                             </Typography>
-                            <img
+                            <Box
+                                component="img"
                                 alt="user-profile-img"
-                                width="50em"
-                                height="50em"
+                                sx={{
+                                    width: { xs: 30, sm: 50, md: 60 },
+                                    height: { sm: 50, md: 60 },
+                                }}
                                 src={user.profileImg}
                             />
                         </Box>
@@ -48,16 +64,14 @@ export default function UserComponent({ onLogoutCallback }: Props) {
                                 backgroundColor: colors.red[500],
                                 borderRadius: "3px",
                                 margin: "2%",
-                                height: "3em",
-                                width: "3em"
+                                height: { sm: 50, md: 60 },
+                                width: { xs: 30, sm: 50, md: 60 },
+                                alignSelf: "center"
                             }}
                             onClick={() => onLogoutCallback()}
                         >
                             <PowerSettingsNewIcon />
                         </IconButton>
-                        {
-
-                        }
                     </Box>
                 )
             }
