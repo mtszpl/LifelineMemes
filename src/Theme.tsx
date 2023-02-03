@@ -139,27 +139,45 @@ export const themeSettings = (mode: any) => {
             fontSize: 12,
             h1: {
                 fontFamily: ["Oxygen", "sans-serif"].join(","),
-                fontSize: 40
+                fontSize: 40,
+                '@media (max-width:600px)': {
+                    fontSize: 20
+                }
             },
             h2: {
                 fontFamily: ["Oxygen", "sans-serif"].join(","),
-                fontSize: 32
+                fontSize: 32,
+                '@media (max-width:600px)': {
+                    fontSize: 16
+                }
             },
             h3: {
                 fontFamily: ["Oxygen", "sans-serif"].join(","),
-                fontSize: 24
+                fontSize: 24,
+                '@media (max-width:600px)': {
+                    fontSize: 12
+                }
             },
             h4: {
                 fontFamily: ["Oxygen", "sans-serif"].join(","),
-                fontSize: 20
+                fontSize: 20,
+                '@media (max-width:600px)': {
+                    fontSize: 10
+                }
             },
             h5: {
                 fontFamily: ["Oxygen", "sans-serif"].join(","),
-                fontSize: 16
+                fontSize: 16,
+                '@media (max-width:600px)': {
+                    fontSize: 8
+                }
             },
             h6: {
                 fontFamily: ["Oxygen", "sans-serif"].join(","),
-                fontSize: 14
+                fontSize: 14,
+                '@media (max-width:600px)': {
+                    fontSize: 7
+                }
             }
         }
     }

@@ -23,9 +23,12 @@ export default function Topbar({ onLogoutCallback }: Props) {
             <Box
               component="img"
               src="../Assets/lifelineMemeLogo.png"
+              alt="logo"
               sx={{
-                height: { xs: 20, sm: 25, md: 50},
-                width: { xs: 20, sm: 25, md: 50},
+                height: { sm: "100%", md: "100%"},
+                width: { sm: "100%", md: "100%"},
+                maxWidth: 50,
+                maxHeight: 50
             }}
             />
             <Typography variant="h3" color={colors.white[200]}>Lifeline Memes</Typography>

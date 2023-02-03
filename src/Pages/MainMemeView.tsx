@@ -35,7 +35,7 @@ export default function MainMemeView() {
 
     return (
         <Box display="flex" flexDirection="column" alignItems="center" gap="2vh">
-            <Link to={user.role !== "UNLOGGED" ? "/creator" : "/login"}>
+            <Link to={user.role !== "UNLOGGED" ? "/creator" : "/login"} style={{ textDecoration: "none"}}>
                 <IconButton
                     sx={{
                         display: "flex",

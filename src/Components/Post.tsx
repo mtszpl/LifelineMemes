@@ -48,26 +48,28 @@ export default function Post(props: Props) {
 
 
     return (
-        <Box display="flex" my="1%" alignContent="center" bgcolor="blue"
+        <Box display="flex" my="1%" alignContent="center" gap="3%"
             sx={{
                 width: { sm: '100%', md: 0.9 },
             }}>
-            <Link to={`/profilemanagement/${postData.authorName}`}>
-                <Box
-                    component="img"
-                    alt='author-profile-pic'
-                    sx={{
-                        height: "10%",
-                        width: "10%",
-                    }}
-                    src={author.profileImg}
-                />
+            <Link style={{ textDecoration: "none", width: "10%" }} to={`/profilemanagement/${postData.authorName}`}>
+                <Box>
+                    <Box
+                        component="img"
+                        alt='author-profile-pic'
+                        sx={{
+                            width: '100%',
+                            height: "100%"
+                        }}
+                        src={author.profileImg}
+                    />
+                </Box>
             </Link>
             <Box display="flex" flexDirection="column" alignItems="stretch" gap="1vh"
                 sx={{
                     width: "100%",
                     maxWidth: 750,
-                    cursor: "pointer"
+                    cursor: "pointer",
                 }}
             >
                 <Link style={{ textDecoration: "none", color: "inherit" }} to={`/${postData.id}/${postData.clearTitle}`}>

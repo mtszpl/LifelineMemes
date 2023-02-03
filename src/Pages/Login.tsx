@@ -53,7 +53,7 @@ export default function Login({ onLoginCallback }: Props) {
                     justifyContent: "space-around"
                 }}
             >
-                <Link to={"/createuser"}>
+                <Link to={"/createuser"} style={{textDecoration: "none"}}>
                     <Button
                         sx={{
                             width: "10em",
