@@ -45,8 +45,12 @@ export default function ProfileSettings() {
             <UserContext.Provider value={user} />
             <Typography>Profile Settings</Typography>
             <Box>
-                <TextField defaultValue={newUserName} onChange={(e) => changeCurrentUsername(e)} />
-                <TextField defaultValue={newPassword} onChange={(e) => changeCurrentPassword(e)} />
+                <Box display="flex">
+                    <TextField defaultValue={newUserName} sx={{ ml: "1em" }} onChange={(e) => changeCurrentUsername(e)} /> <Typography>Change username</Typography>
+                </Box>
+                <Box display="flex">
+                    <TextField defaultValue={newPassword} sx={{ ml: "1em" }} onChange={(e) => changeCurrentPassword(e)} /> <Typography>Change password</Typography>
+                </Box>
             </Box>
 
             <Box>

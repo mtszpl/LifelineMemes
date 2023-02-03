@@ -9,7 +9,7 @@ type Props = {
   content: string
 }
 
-export default function CommentDisplay({ authorName, content }: Props) {
+export default function Comment({ authorName, content }: Props) {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [author, updateAuthor] = useGetUser()
@@ -18,7 +18,7 @@ export default function CommentDisplay({ authorName, content }: Props) {
 
   useEffect(() => {
     updateAuthor(authorName)
-  }, [authorName])
+  }, [])
 
   return (
     <Box bgcolor={colors.primary[800]} display="flex" mb="2em">

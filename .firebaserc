@@ -1,5 +1,16 @@
 {
   "projects": {
-    "default": "memepageproject-5dadd"
-  }
+    "default": "memepageproject-5dadd",
+    "lifelinememes": "memepageproject-5dadd"
+  },
+  "targets": {
+    "memepageproject-5dadd": {
+      "hosting": {
+        "tdep": [
+          "lifelinememes"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

@@ -17,7 +17,7 @@ export default function UserDashboard() {
     const [owner, updateOwner] = useGetUser()
     const [memes, setMemes] = useGetMemes()
 
-    useEffect(() => { updateOwner(username!); setMemes(username) }, [username, updateOwner, setMemes])
+    useEffect(() => { updateOwner(username!); setMemes(username) }, [username])
 
     return (
         <Box display="flex" flexDirection="column" width="80%" alignItems="center">

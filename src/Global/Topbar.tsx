@@ -18,7 +18,7 @@ export default function Topbar({ onLogoutCallback }: Props) {
   return (
     <AppBar position="sticky">
       <Box display="flex" justifyContent="space-evenly" alignItems="center" height="5em" bgcolor={colors.primary[900]}>
-        <Link to="/">
+        <Link style={{textDecoration: "none"}} to="/">
           <Box display="flex" gap="2em" justifyContent="flex-start" alignItems="center">
             <img
               // alt="logo" 

@@ -42,7 +42,6 @@ export const useGetComments = () => {
             .subscribe(comments => {
                 setComments([])
                 if (comments.length === 0) {
-                    alert("Not found")
                     return
                 }
                 let newCommentsArray: {

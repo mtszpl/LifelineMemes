@@ -119,7 +119,7 @@ export const useUploadMeme = () => {
                 Title: title,
                 clearTitle: title.replace(/[^\w\s']|_/g, "")
                     .replace(/\s+/g, "-"),
-                dataLink: "gs://memepageproject-5dadd.appspot.com/" + newLink,
+                dataLink: newLink,
                 author: author,
                 timestamp: Date.now()
             })

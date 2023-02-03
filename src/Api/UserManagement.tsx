@@ -16,13 +16,15 @@ export const useLogIn = () => {
         if (!username)
             return
         const q: Query<DocumentData> = query(userData)
-        collectionData(q)
+        return collectionData(q)
             .subscribe(users => {
+                console.log(users);
                 users = users.filter(user => user.username === username)
                 if (users.length === 0) {
                     alert("Username not found")
                     return
                 }
+                else
                 if (users[0].password === password) {
                     setUserRole(users[0].Role)
                     callback({ username: users[0].username, profileImg: users[0].profileImg, role: users[0].role })
@@ -40,7 +42,7 @@ export const useRegisterUser = () => {
     const [firestore] = useState<Firestore>(getFirestore(firebase))
 
     const registerUser = (newUserName: string, newUserPassword: string, newUserRole?: string) => {
-        addDoc(collection(firestore, "Users"), {
+        return addDoc(collection(firestore, "Users"), {
             id: Date.now(),
             username: newUserName,
             password: newUserPassword,

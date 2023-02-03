@@ -71,7 +71,7 @@ export default function Post(props: Props) {
                 <Link to={`/${postData.id}/${postData.clearTitle}`}>
                     <img
                         width="750em"
-                        height="750em"
+                        // height="750em"
                         alt={postData.title}
                         src={postData.dataLink}
                     />

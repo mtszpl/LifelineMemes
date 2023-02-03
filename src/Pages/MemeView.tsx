@@ -6,7 +6,7 @@ import { useGetOneMeme } from '../Api/MemeManagement'
 import Post from '../Global/Post'
 import { tokens } from '../Theme'
 import { useGetComments } from '../Api/CommentManagement'
-import CommentDisplay from '../Components/CommentDisplay'
+import Comment from '../Components/Comment'
 
 type Props = {
 }
@@ -26,31 +26,39 @@ export default function MemeView(props: Props) {
     tags?: string
   }>()
   const [, getMeme] = useGetOneMeme()
-  
-  const [,updateComments] = useGetComments()
+
+  const [, updateComments] = useGetComments()
   const [comments, setComments] = useState<{
     author: string
     commentedPost: string
     content: string
     timestamp: number
-}[]>([])
+  }[]>([])
+
+  const [canShowMemes, setCanShowMemes] = useState<boolean>(false)
 
   useEffect(() => {
+    setCanShowMemes(false)
     getMeme(title!, (newMeme: any) => {
-      setMeme({      
-      id: newMeme.id,
-      title: newMeme.title,
-      clearTitle: newMeme.clearTitle,
-      dataLink: newMeme.dataLink,
-      authorName: newMeme.author,
-      timestamp: newMeme.timestamp,
-      tags: newMeme.tags
+      setMeme({
+        id: newMeme.id,
+        title: newMeme.title,
+        clearTitle: newMeme.clearTitle,
+        dataLink: newMeme.dataLink,
+        authorName: newMeme.author,
+        timestamp: newMeme.timestamp,
+        tags: newMeme.tags
+      })
     })
-  })
-  updateComments(title!, (arr: any) =>
-    setComments(arr)
-  )
-  }, [title])
+
+    updateComments(title!, (arr: any) => {
+      console.log(arr);
+      setComments(arr)
+      console.log(comments);
+      setCanShowMemes(true)
+    }
+    )
+  }, [])
 
   return (
     <Box display="flex" flexDirection="column" alignItems="stretch" width="75%">
@@ -63,10 +71,10 @@ export default function MemeView(props: Props) {
           <Typography color={colors.white[100]}>Back To Main Page</Typography>
         </Button>
       </Link>
-      <CommentBox title={title!} onPostCallback={() => {updateComments(title!)}} />
+      <CommentBox title={title!} onPostCallback={() => { updateComments(title!) }} />
       <Box>
-        {comments !== undefined && comments.map((comment, i) => (
-          <CommentDisplay key={i} authorName={comment.author} content={comment.content} />
+        {(comments !== undefined && canShowMemes === true) && comments.map((comment, i) => (
+          <Comment key={i} authorName={comment.author} content={comment.content} />
         ))}
       </Box>
     </Box>

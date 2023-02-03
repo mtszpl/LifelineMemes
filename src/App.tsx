@@ -46,6 +46,7 @@ function App() {
   const handleCreateUser = (newUserName: string, newUserPassword: string) => {
     console.log(newUserName, newUserPassword)
     createUser(newUserName, newUserPassword)
+    .then(() => reroute("/"))
   }
 
   return (

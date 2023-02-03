@@ -9,10 +9,7 @@ import Post from '../Global/Post'
 import { UserContext } from '../Api/UserManagement'
 import { tokens } from '../Theme'
 
-type Props = {
-}
-
-export default function MainMemeView({ }: Props) {
+export default function MainMemeView() {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const [page, setPage] = useState(1)
