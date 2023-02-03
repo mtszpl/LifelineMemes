@@ -29,7 +29,6 @@ function App() {
   const reroute = useNavigate()
 
   const handleLogin = (newUser: { username: string, profileImg: string, role: string }) => {
-    console.log("logging");
     setCurrentUser(newUser)
     getImageFromProfileImgStore(newUser.profileImg, (imgUrl: string) => {
       setCurrentUser(currentUser => ({
@@ -45,7 +44,6 @@ function App() {
   }
 
   const handleCreateUser = (newUserName: string, newUserPassword: string) => {
-    console.log(newUserName, newUserPassword)
     createUser(newUserName, newUserPassword)
       .then((data) => {
         reroute("/")

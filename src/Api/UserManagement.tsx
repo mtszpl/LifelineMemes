@@ -6,6 +6,17 @@ import { deleteImageFromProfileImageStore, FirebaseContext, getImageFromProfileI
 
 export const UserContext = React.createContext({ username: "", profileImg: "", role: "UNLOGGED" })
 
+const hash = (input: string) => {
+    const encoder = new TextEncoder().encode(input)
+    return crypto.subtle.digest('SHA-256', encoder).then((hashBuffer) => {
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray
+            .map((bytes) => bytes.toString(16).padStart(2, '0'))
+            .join('');
+        return hashHex;
+    })
+}
+
 export const useLogIn = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
     const [firestore] = useState<Firestore>(getFirestore(firebase))
@@ -15,22 +26,23 @@ export const useLogIn = () => {
     const checkUser = (username: string, password: string, callback: Function) => {
         if (!username)
             return
-        const q: Query<DocumentData> = query(userData)
+        const q: Query<DocumentData> = query(userData, where("username", "==", username))
         return collectionData(q)
             .subscribe(users => {
-                users = users.filter(user => user.username === username)
                 if (users.length === 0) {
                     alert("Username not found")
                     return
                 }
                 else
-                    if (users[0].password === password) {
-                        setUserRole(users[0].Role)
-                        callback({ username: users[0].username, profileImg: users[0].profileImg, role: users[0].role })
-                        return users[0]
-                    }
-                    else
-                        alert("Incorrect password")
+                    hash(password).then(passwordHash => {
+                        if (users[0].password === passwordHash) {
+                            setUserRole(users[0].Role)
+                            callback({ username: users[0].username, profileImg: users[0].profileImg, role: users[0].role })
+                            return users[0]
+                        }
+                        else
+                            alert("Incorrect password")
+                    })
             })
     }
 
@@ -50,16 +62,15 @@ export const useRegisterUser = () => {
                 return docRef.empty
             })
             .then(async (userExists) => {
-                console.log("userExists || docIsEmpty", userExists);
-                console.log("userNotExists || docIsNotEmpty", !userExists);
                 if (userExists) {
-                    console.log("adding user...");
-                    addDoc(collection(firestore, "Users"), {
-                        id: Date.now(),
-                        username: newUserName,
-                        password: newUserPassword,
-                        role: newUserRole !== undefined ? newUserRole : "USER",
-                        profileImg: "defaultAvatar.png"
+                    await hash(newUserPassword).then(passwordHash => {
+                        addDoc(collection(firestore, "Users"), {
+                            id: Date.now(),
+                            username: newUserName,
+                            password: passwordHash,
+                            role: newUserRole !== undefined ? newUserRole : "USER",
+                            profileImg: "defaultAvatar.png"
+                        })
                     })
                     return true
                 }
@@ -134,28 +145,37 @@ export const useUpdateUser = () => {
         const q: Query<DocumentData> = query(userData, where("username", "==", oldUserName))
         const querySnapshot = await getDocs(q)
         querySnapshot.forEach(document => {
-            if (newProfileImg !== undefined)
-                updateProfileImg(newProfileImg, document.data().profileImg).then(result => {
-                    let newUserData = {
-                        username: newUserName !== (undefined || "") ? newUserName : document.data().username,
-                        password: newUserPassword !== (undefined || "") ? newUserPassword : document.data().password,
-                        role: newUserRole !== (undefined && "") ? newUserRole : document.data().role,
-                        profileImg: newProfileImg !== undefined ? result.ref.name : document.data().profileImg
+            if (!document.data().empty()) {
+                let tmpPassword: string
+                if (newUserPassword !== (undefined && ""))
+                    tmpPassword = newUserPassword
+                else
+                    tmpPassword = document.data().password
+                hash(tmpPassword).then(passwordHash => {
+                    if (newProfileImg !== undefined)
+                        updateProfileImg(newProfileImg, document.data().profileImg).then(result => {
+                            let newUserData = {
+                                username: newUserName !== (undefined || "") ? newUserName : document.data().username,
+                                password: passwordHash,
+                                role: newUserRole !== (undefined && "") ? newUserRole : document.data().role,
+                                profileImg: newProfileImg !== undefined ? result.ref.name : document.data().profileImg
+                            }
+                            updateDoc(doc(firestore, "Users", document.id), newUserData)
+                            callback !== undefined && callback(newUserData)
+                            return
+                        })
+                    else {
+                        let newUserData = {
+                            username: newUserName !== (undefined || "") ? newUserName : document.data().username,
+                            password: passwordHash,
+                            role: newUserRole !== (undefined && "") ? newUserRole : document.data().role,
+                            profileImg: document.data().profileImg
+                        }
+                        console.log(newUserData)
+                        updateDoc(doc(firestore, "Users", document.id), newUserData)
+                        callback !== undefined && callback(newUserData)
                     }
-                    updateDoc(doc(firestore, "Users", document.id), newUserData)
-                    callback !== undefined && callback(newUserData)
-                    return
                 })
-            else {
-                let newUserData = {
-                    username: newUserName !== (undefined || "") ? newUserName : document.data().username,
-                    password: newUserPassword !== (undefined || "") ? newUserPassword : document.data().password,
-                    role: newUserRole !== (undefined && "") ? newUserRole : document.data().role,
-                    profileImg: document.data().profileImg
-                }
-                console.log(newUserData)
-                updateDoc(doc(firestore, "Users", document.id), newUserData)
-                callback !== undefined && callback(newUserData)
             }
 
         })
