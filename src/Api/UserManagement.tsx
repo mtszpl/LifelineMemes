@@ -18,19 +18,19 @@ export const useLogIn = () => {
         const q: Query<DocumentData> = query(userData)
         return collectionData(q)
             .subscribe(users => {
-                console.log(users);
                 users = users.filter(user => user.username === username)
                 if (users.length === 0) {
                     alert("Username not found")
                     return
                 }
                 else
-                if (users[0].password === password) {
-                    setUserRole(users[0].Role)
-                    callback({ username: users[0].username, profileImg: users[0].profileImg, role: users[0].role })
-                }
-                else
-                    alert("Incorrect password")
+                    if (users[0].password === password) {
+                        setUserRole(users[0].Role)
+                        callback({ username: users[0].username, profileImg: users[0].profileImg, role: users[0].role })
+                        return users[0]
+                    }
+                    else
+                        alert("Incorrect password")
             })
     }
 
@@ -41,18 +41,36 @@ export const useRegisterUser = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
     const [firestore] = useState<Firestore>(getFirestore(firebase))
 
-    const registerUser = (newUserName: string, newUserPassword: string, newUserRole?: string) => {
-        return addDoc(collection(firestore, "Users"), {
-            id: Date.now(),
-            username: newUserName,
-            password: newUserPassword,
-            role: newUserRole !== undefined ? newUserRole : "USER",
-            profileImg: ""
-        })
+    const registerUser = async (newUserName: string, newUserPassword: string, newUserRole?: string) => {
+        const userData: CollectionReference<DocumentData> = collection(firestore, "/Users")
+        const q: Query<DocumentData> = query(userData, where("username", "==", newUserName))
+        return getDocs(q)
+            .then((docRef) => {
+                docRef.forEach(document => console.log(document.data()))
+                return docRef.empty
+            })
+            .then(async (userExists) => {
+                console.log("userExists || docIsEmpty", userExists);
+                console.log("userNotExists || docIsNotEmpty", !userExists);
+                if (userExists) {
+                    console.log("adding user...");
+                    addDoc(collection(firestore, "Users"), {
+                        id: Date.now(),
+                        username: newUserName,
+                        password: newUserPassword,
+                        role: newUserRole !== undefined ? newUserRole : "USER",
+                        profileImg: "defaultAvatar.png"
+                    })
+                    return true
+                }
+                else {
+                    alert("User already exists")
+                    return Promise.reject(new Error("User already exists"))
+                }
+            })
     }
     return registerUser
 }
-
 
 export const useGetUser = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)

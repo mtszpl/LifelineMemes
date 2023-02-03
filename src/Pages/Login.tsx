@@ -61,7 +61,8 @@ export default function Login({ onLoginCallback }: Props) {
                             bgcolor: colors.red[500],
                             m: "1em"
                         }}
-                        onClick={(e) => handleClick(e)}>
+                        // onClick={(e) => handleClick(e)}
+                        >
                         <Typography color={colors.white[100]} variant="h3">Sign In</Typography>
                     </Button>
                 </Link>

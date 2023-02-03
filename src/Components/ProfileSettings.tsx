@@ -44,7 +44,7 @@ export default function ProfileSettings() {
         <Box>
             <UserContext.Provider value={user} />
             <Typography>Profile Settings</Typography>
-            <Box>
+            <Box display="flex" gap="1em" flexDirection="column" my="2em">
                 <Box display="flex">
                     <TextField defaultValue={newUserName} sx={{ ml: "1em" }} onChange={(e) => changeCurrentUsername(e)} /> <Typography>Change username</Typography>
                 </Box>

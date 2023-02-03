@@ -21,12 +21,13 @@ export default function MainMemeView() {
     
     let [memesToDisplay, setMemesToDisplay] = useState(memes.slice((page - 1), postsPerPage))
 
-    useEffect(() => setMemes(), [])
+    useEffect(() => {setMemes()}, [])
 
     useEffect(() => {
         setMemesToDisplay(memes.slice((page - 1) * postsPerPage, postsPerPage * page))
         window.scrollTo(0, 0)
     }, [page, memes])
+
 
     const handleChange = (e: React.ChangeEvent<unknown>, value: number) => {
         setPage(value)
@@ -53,7 +54,7 @@ export default function MainMemeView() {
                     />))}
 
             <Pagination
-                count={(memes.length < postsPerPage) ? 1 : Math.floor(memes.length / postsPerPage) + 1}
+                count={(memes.length < postsPerPage) ? 1 : Math.ceil(memes.length / postsPerPage)}
                 shape="rounded"
                 onChange={handleChange}
             />

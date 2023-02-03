@@ -17,15 +17,13 @@ export const useGetMemes = () => {
 
     const getMemes = (username?: string) => {
         const memeData: CollectionReference<DocumentData> = collection(firestore, "/Memes")
-        collectionData(query(memeData))
-            .subscribe(memes => {
+        return collectionData(query(memeData))
+        .subscribe(memes => {
                 setMemeArray([])
                 if (username !== undefined)
                     memes = memes.filter(meme => meme.author === username)
-                if (memes.length === 0) {
-                    alert("Not found")
-                    return
-                }
+                if (memes.length === 0) 
+                    return                
                 else {
                     const newMemeArray: {
                         id: number,
@@ -114,15 +112,15 @@ export const useUploadMeme = () => {
         dataLink: File,
         author: string,
     ) => {
-        pushImageToMemeStore(dataLink, (newLink: string) => {
+        pushImageToMemeStore(dataLink).then(snapshot => {
             addDoc(collection(firestore, "Memes"), {
                 Title: title,
                 clearTitle: title.replace(/[^\w\s']|_/g, "")
                     .replace(/\s+/g, "-"),
-                dataLink: newLink,
+                dataLink: dataLink.name,
                 author: author,
                 timestamp: Date.now()
-            })
+            })            
         })
     }
     return uploadMeme

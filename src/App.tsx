@@ -29,6 +29,7 @@ function App() {
   const reroute = useNavigate()
 
   const handleLogin = (newUser: { username: string, profileImg: string, role: string }) => {
+    console.log("logging");
     setCurrentUser(newUser)
     getImageFromProfileImgStore(newUser.profileImg, (imgUrl: string) => {
       setCurrentUser(currentUser => ({
@@ -46,7 +47,15 @@ function App() {
   const handleCreateUser = (newUserName: string, newUserPassword: string) => {
     console.log(newUserName, newUserPassword)
     createUser(newUserName, newUserPassword)
-    .then(() => reroute("/"))
+      .then((data) => {
+        reroute("/")
+        data === true &&
+          handleLogin({
+            username: newUserName,
+            profileImg: 'defaultAvatar.png',
+            role: "USER"
+          })
+      })
   }
 
   return (
@@ -63,9 +72,9 @@ function App() {
                   <Route path="/:id/:title" element={<MemeView />} />
                   <Route path="/login" element={<Login onLoginCallback={handleLogin} />} />
                   <Route path="/createuser" element={<CreateUser onUserCreateCallback={handleCreateUser} />} />
-                  <Route path="/profilemanagement/:username" element={<UserDashboard/>} />
-                  <Route path="/creator" element={<MemeCreate author={currentUser.username}/>} />
-                  <Route path='*' element={<Page404/>}/>
+                  <Route path="/profilemanagement/:username" element={<UserDashboard />} />
+                  <Route path="/creator" element={<MemeCreate author={currentUser.username} />} />
+                  <Route path='*' element={<Page404 />} />
                 </Routes>
               </Container>
             </main>

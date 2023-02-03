@@ -31,9 +31,7 @@ export const getImageFromMemeStore = async (url: string, imageSetterCallback?: F
 export const pushImageToMemeStore = async (image: File, callback?: Function) => {
     const storage = getStorage()
     const storageRef = ref(storage, "/memes/" + image.name)
-    return uploadBytes(storageRef, image).then(snapshot => {
-        callback !== undefined && callback(snapshot.ref.fullPath)
-    })
+    return uploadBytes(storageRef, image)
 }
 
 export const getImageFromProfileImgStore = async (url: string, imageSetterCallback?: Function) => {

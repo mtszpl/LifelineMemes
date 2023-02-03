@@ -60,14 +60,16 @@ export default function Post(props: Props) {
                 </Link>
             </Box>
             <Box display="flex" flexDirection="column" alignItems="stretch" gap="1vh">
-                <Box bgcolor={colors.indigo[900]}>
-                    <Link to={`/${postData.id}/${postData.clearTitle}`}>
+                <Link style={{ textDecoration: "none", color: "inherit" }} to={`/${postData.id}/${postData.clearTitle}`}>
+                    <Box bgcolor={colors.indigo[900]}>
                         <Typography variant='h2'>{postData.title}</Typography>
-                    </Link>
-                </Box>
-                <Box bgcolor={colors.indigo[900]}>
-                    <Typography variant='h6'>{postData.authorName}</Typography>
-                </Box>
+                    </Box>
+                </Link>
+                <Link style={{ textDecoration: "none", color: "inherit" }} to={`/profilemanagement/${postData.authorName}`}>
+                    <Box bgcolor={colors.indigo[900]}>
+                        <Typography variant='h6'>{postData.authorName}</Typography>
+                    </Box>
+                </Link>
                 <Link to={`/${postData.id}/${postData.clearTitle}`}>
                     <img
                         width="750em"

@@ -30,7 +30,7 @@ export default function CreateUser({ onUserCreateCallback }: Props) {
     }
 
     const handleClick = (e: any) => {
-        if(password !== repeatedPassword){
+        if (password !== repeatedPassword) {
             alert("Repeated password must match password!")
             return
         }
@@ -41,7 +41,9 @@ export default function CreateUser({ onUserCreateCallback }: Props) {
         <Box display="flex" flexDirection="column" alignItems="center" width="50%">
             <TextField defaultValue={username} label="Username" sx={{ width: "100%", m: "1em" }} onChange={handleUserChange} />
             <TextField defaultValue={password} type="password" label="Password" sx={{ width: "100%", m: "1em" }} onChange={handlePasswordChange} />
-            <TextField defaultValue={repeatedPassword} type="password" label="Repeat Password" sx={{ width: "100%", m: "1em" }} onChange={handleRepeatedPasswordChange} />
+            <TextField defaultValue={repeatedPassword} error={password !== repeatedPassword}
+                helperText={password !== repeatedPassword ? "Repeated password must match password" : ""}
+                type="password" label="Repeat Password" sx={{ width: "100%", m: "1em" }} onChange={handleRepeatedPasswordChange} />
             <Button
                 sx={{
                     width: "10em",
@@ -50,10 +52,10 @@ export default function CreateUser({ onUserCreateCallback }: Props) {
                     m: "1em"
                 }}
                 onClick={handleClick}
-                >
-                    <Typography color={colors.white[100]} variant="h3">
-                        Register
-                    </Typography>
+            >
+                <Typography color={colors.white[100]} variant="h3">
+                    Register
+                </Typography>
             </Button>
 
         </Box>
