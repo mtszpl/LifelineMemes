@@ -58,7 +58,6 @@ export const useRegisterUser = () => {
         const q: Query<DocumentData> = query(userData, where("username", "==", newUserName))
         return getDocs(q)
             .then((docRef) => {
-                docRef.forEach(document => console.log(document.data()))
                 return docRef.empty
             })
             .then(async (userExists) => {
@@ -116,10 +115,10 @@ export const useGetUserById = () => {
 
     const updateGotUser = (id: string, callback?: Function) => {
         const docRef = doc(firestore, "Users", id)
-        return getDoc(docRef).then((data) => {
+        return getDoc(docRef).then(async (data) => {
             const newData = data.data()
             if (newData !== undefined) {
-                getImageFromProfileImgStore(newData.profileImg).then(url => {
+                await getImageFromProfileImgStore(newData.profileImg).then(url => {
                     newData.profileImg = url
                     setGotUser({ username: newData.username, profileImg: newData.profileImg })
                     return newData

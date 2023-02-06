@@ -41,21 +41,36 @@ export default function ProfileSettings() {
     }
 
     return (
-        <Box>
+        <Box alignContent="center" alignSelf="stretch">
             <UserContext.Provider value={user} />
-            <Typography>Profile Settings</Typography>
-            <Box display="flex" gap="1em" flexDirection="column" my="2em">
-                <Box display="flex">
-                    <TextField defaultValue={newUserName} sx={{ ml: "1em" }} onChange={(e) => changeCurrentUsername(e)} /> <Typography>Change username</Typography>
+            <Typography alignSelf="center">Profile Settings</Typography>
+            <Box
+                display="flex"
+                sx={{
+                    width: "100%",
+                }}
+                alignItems="center"
+                gap="1em"
+                flexDirection="column"
+                my="2em">
+                <Box display="flex" alignItems="center" alignSelf="stretch">
+                    <TextField
+                        defaultValue={newUserName}
+                        sx={{ ml: "1em", flexGrow: "2" }}
+                        onChange={(e) => changeCurrentUsername(e)}
+                    /> <Typography>Change username</Typography>
                 </Box>
-                <Box display="flex">
-                    <TextField defaultValue={newPassword} sx={{ ml: "1em" }} onChange={(e) => changeCurrentPassword(e)} /> <Typography>Change password</Typography>
+                <Box display="flex" alignItems="center" alignSelf="stretch">
+                    <TextField
+                        defaultValue={newPassword}
+                        sx={{ ml: "1em", flexGrow: "2" }}
+                        onChange={(e) => changeCurrentPassword(e)}
+                    /> <Typography>Change password</Typography>
                 </Box>
-            </Box>
-
-            <Box>
-                <Typography variant="h5">Set profile picture</Typography>
-                <input type="file" onChange={(e) => changeProfileImg(e)} />
+                <Box display="flex" width="50%" justifyContent="space-between" flexDirection={{xs: "column", sm: "column", md: "row" }}>
+                    <input type="file" onChange={(e) => changeProfileImg(e)} />
+                    <Typography variant="h5" ml="5%">Change profile picture</Typography>
+                </Box>
                 <Button
                     sx={{ backgroundColor: colors.red[500], borderRadius: "3px", margin: "2%", minWidth: "100px" }}
                     onClick={(e) => updateProfileSettings(e)}

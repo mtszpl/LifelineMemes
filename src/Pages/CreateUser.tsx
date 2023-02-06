@@ -34,11 +34,15 @@ export default function CreateUser({ onUserCreateCallback }: Props) {
             alert("Repeated password must match password!")
             return
         }
+        if(!password || !username){
+            alert("Username or password can't be empty!")
+            return
+        }
         onUserCreateCallback(username, password)
     }
 
     return (
-        <Box display="flex" flexDirection="column" alignItems="center" width="50%">
+        <Box display="flex" flexDirection="column" alignItems="center" width={{ xs:1, sm:1, md: "50%"}}>
             <TextField defaultValue={username} label="Username" sx={{ width: "100%", m: "1em" }} onChange={handleUserChange} />
             <TextField defaultValue={password} type="password" label="Password" sx={{ width: "100%", m: "1em" }} onChange={handlePasswordChange} />
             <TextField defaultValue={repeatedPassword} error={password !== repeatedPassword}

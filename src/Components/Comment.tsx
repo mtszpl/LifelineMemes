@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from '@mui/material'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useGetUser } from '../Api/UserManagement'
+import { useGetUserById } from '../Api/UserManagement'
 import { tokens } from '../Theme'
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 export default function Comment({ authorName, content }: Props) {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
-  const [author, updateAuthor] = useGetUser()
+  const [author, updateAuthor] = useGetUserById()
 
   const reroute = useNavigate()
 

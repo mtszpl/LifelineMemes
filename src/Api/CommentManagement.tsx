@@ -38,43 +38,35 @@ export const useGetComments = () => {
 
     const updateComments = async (post: string, callback?: Function) => {
         const commentData: CollectionReference<DocumentData> = collection(firestore, "/Comments")
-        collectionData(query(commentData, where("commentedPostTitle", "==", post)))
-            .subscribe(comments => {
-                setComments([])
-                if (comments.length === 0) {
-                    return
-                }
-                let newCommentsArray: {
-                    author: string
-                    commentedPost: string
-                    content: string
-                    timestamp: number
-                }[] = []
-                comments.forEach((comment, i) => {
-                    getAuthor(comment.author, (authorUser: any) => {
-                        if (authorUser !== undefined) {
-                            let tmp = {
-                                author: authorUser.username,
-                                commentedPost: comment.commentedPostTitle,
-                                content: comment.content,
-                                timestamp: comment.timestamp
-                            }
-                            newCommentsArray.push(tmp)
-                            newCommentsArray.sort((a, b) => {
-                                if (a.timestamp === undefined && b.timestamp === undefined)
-                                    return 0
-                                if (b.timestamp === undefined)
-                                    return -1
-                                if (a.timestamp === undefined)
-                                    return 1
-                                return a.timestamp > b.timestamp ? -1 : b.timestamp > a.timestamp ? 1 : 0
-                            })
-                            setComments(newCommentsArray)
-                            if (i >= comments.length - 1)
-                                callback !== undefined && callback(newCommentsArray)
-                        }
+        const q: Query<DocumentData> = query(commentData, where("commentedPostTitle", "==", post))
+        let newCommentsArray: {
+            author: string
+            commentedPost: string
+            content: string
+            timestamp: number
+        }[] = []
+
+        return getDocs(q)
+            .then(async (docRef) => {
+                docRef.forEach(document => {
+                    let tmp = {
+                        author: document.data().author,
+                        commentedPost: document.data().commentedPostTitle,
+                        content: document.data().content,
+                        timestamp: document.data().timestamp
+                    }
+                    newCommentsArray.push(tmp)
+                    newCommentsArray.sort((a, b) => {
+                        if (a.timestamp === undefined && b.timestamp === undefined)
+                            return 0
+                        if (b.timestamp === undefined)
+                            return -1
+                        if (a.timestamp === undefined)
+                            return 1
+                        return a.timestamp > b.timestamp ? -1 : b.timestamp > a.timestamp ? 1 : 0
                     })
                 })
+                return newCommentsArray
             })
     }
 

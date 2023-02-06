@@ -43,34 +43,36 @@ export default function Login({ onLoginCallback }: Props) {
     }
 
     return (
-        <Box display="flex" flexDirection="column" alignItems="center" width="50%">
+        <Box display="flex" flexDirection="column" alignItems="center" width={{ xs: 1, sm: 1, md: "50%" }}>
             <TextField defaultValue={userName} label="Username" sx={{ width: "100%", m: "1em" }} onChange={handleUserChange} />
             <TextField defaultValue={password} type="password" label="Password" sx={{ width: "100%", m: "1em" }} onChange={handlePasswordChange} />
             <Box
                 sx={{
                     display: "flex",
                     width: "100%",
-                    justifyContent: "space-around"
+                    justifyContent: { xs: "space-between", sm: "space-between", md: "space-around"}
                 }}
             >
-                <Link to={"/createuser"} style={{textDecoration: "none"}}>
-                    <Button
-                        sx={{
-                            width: "10em",
-                            height: "5em",
-                            bgcolor: colors.red[500],
-                            m: "1em"
-                        }}
+                <Box display="flex" sx={{ flexGrow: { xs: 2, sm: 2 } }} justifyContent="stretch" alignItems="center">
+                    <Link to={"/createuser"} style={{ textDecoration: "none", width: "100%"}}>
+                        <Button
+                            sx={{
+                                width: "100%",
+                                height: "5em",
+                                bgcolor: colors.red[500],
+                            }}
                         >
-                        <Typography color={colors.white[100]} variant="h3">Sign In</Typography>
-                    </Button>
-                </Link>
+                            <Typography color={colors.white[100]} variant="h3">Sign In</Typography>
+                        </Button>
+                    </Link>
+                </Box>
                 <Button
                     sx={{
                         width: "10em",
                         height: "5em",
                         bgcolor: colors.red[500],
-                        m: "1em"
+                        m: "1em",
+                        flexGrow: { xs: 2, sm: 2 }
                     }}
                     onClick={(e) => handleClick(e)}>
                     <Typography color={colors.white[100]} variant="h3">Log In</Typography>

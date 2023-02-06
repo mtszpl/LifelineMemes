@@ -1,7 +1,7 @@
 import { Paper, Typography, useTheme } from '@mui/material'
 import { Box } from '@mui/system'
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { tokens } from '../Theme'
 import { useGetUser } from '../Api/UserManagement';
 
@@ -28,6 +28,7 @@ export default function Post(props: Props) {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
     const [author, updateAuthor] = useGetUser()
+    const { id, title } = useParams()
 
     useEffect(() => {
         let nClearTitle: string = ""
@@ -59,7 +60,7 @@ export default function Post(props: Props) {
                         alt='author-profile-pic'
                         sx={{
                             width: '100%',
-                            height: "100%"
+                            aspectRatio: '1/1',
                         }}
                         src={author.profileImg}
                     />
@@ -72,17 +73,38 @@ export default function Post(props: Props) {
                     cursor: "pointer",
                 }}
             >
-                <Link style={{ textDecoration: "none", color: "inherit" }} to={`/${postData.id}/${postData.clearTitle}`}>
+                {title === undefined ? (
+                    <Link style={{ textDecoration: "none", color: "inherit" }} to={`/${postData.id}/${postData.clearTitle}`}>
+                        <Box bgcolor={colors.indigo[900]} sx={{ cursor: "pointer" }}>
+                            <Typography variant='h2'>{postData.title}</Typography>
+                        </Box>
+                    </Link>
+                ) : (
                     <Box bgcolor={colors.indigo[900]} sx={{ cursor: "pointer" }}>
                         <Typography variant='h2'>{postData.title}</Typography>
                     </Box>
-                </Link>
+                )
+                }
                 <Link style={{ textDecoration: "none", color: "inherit" }} to={`/profilemanagement/${postData.authorName}`}>
                     <Box bgcolor={colors.indigo[900]} sx={{ cursor: "pointer" }}>
                         <Typography variant='h6'>{postData.authorName}</Typography>
                     </Box>
                 </Link>
-                <Link to={`/${postData.id}/${postData.clearTitle}`}>
+
+                {title === undefined ? (
+                    <Link to={`/${postData.id}/${postData.clearTitle}`}>
+                        <Box
+                            component="img"
+                            sx={{
+                                width: "100%",
+                                maxWidth: 750,
+                                cursor: "pointer"
+                            }}
+                            alt={postData.title}
+                            src={postData.dataLink}
+                        />
+                    </Link>
+                ) : (
                     <Box
                         component="img"
                         sx={{
@@ -93,7 +115,7 @@ export default function Post(props: Props) {
                         alt={postData.title}
                         src={postData.dataLink}
                     />
-                </Link>
+                )}
             </Box>
         </Box>
     )

@@ -7,6 +7,7 @@ import Post from '../Components/Post'
 import { tokens } from '../Theme'
 import { useGetComments } from '../Api/CommentManagement'
 import Comment from '../Components/Comment'
+import { useGetUserById } from '../Api/UserManagement'
 
 type Props = {
 }
@@ -26,6 +27,7 @@ export default function MemeView(props: Props) {
     tags?: string
   }>()
   const [, getMeme] = useGetOneMeme()
+  const [, getAuthor] = useGetUserById()
 
   const [, updateComments] = useGetComments()
   const [comments, setComments] = useState<{
@@ -35,10 +37,10 @@ export default function MemeView(props: Props) {
     timestamp: number
   }[]>([])
 
-  const [canShowMemes, setCanShowMemes] = useState<boolean>(false)
+  const [canShowComments, setCanShowComments] = useState<boolean>(false)
 
   useEffect(() => {
-    setCanShowMemes(false)
+    setCanShowComments(false)
     getMeme(title!, (newMeme: any) => {
       setMeme({
         id: newMeme.id,
@@ -51,11 +53,11 @@ export default function MemeView(props: Props) {
       })
     })
 
-    updateComments(title!, (arr: any) => {
-      setComments(arr)
-      setCanShowMemes(true)
-    }
-    )
+    updateComments(title!)
+    .then(comments => {
+      setComments(comments)
+      setCanShowComments(true)
+    })
   }, [])
 
   return (
@@ -75,7 +77,7 @@ export default function MemeView(props: Props) {
       </Link>
       <CommentBox title={title!} onPostCallback={() => { updateComments(title!) }} />
       <Box>
-        {(comments !== undefined && canShowMemes === true) && comments.map((comment, i) => (
+        {(comments !== undefined && canShowComments === true) && comments.map((comment, i) => (
           <Comment key={i} authorName={comment.author} content={comment.content} />
         ))}
       </Box>
