@@ -49,7 +49,7 @@ export default function MainMemeView() {
                 </IconButton>
             </Link>
             {memesToDisplay.map(meme =>
-                (<Post key={meme.id} id={meme.id} authorName={meme.author} title={meme.title} dataLink={meme.dataLink}
+                (<Post key={meme.id} id={meme.id} authorId={meme.author} title={meme.title} dataLink={meme.dataLink}
                     timestamp={meme.timestamp === undefined ? meme!.id : meme.timestamp}
                     />))}
 

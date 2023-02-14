@@ -3,7 +3,7 @@ import { Firestore, getFirestore, addDoc, collection, CollectionReference, Docum
 import { useContext, useState } from "react"
 import { collectionData } from "rxfire/firestore"
 import { FirebaseContext } from "./Firebase"
-import { useGetUserById } from "./UserManagement"
+import { useGetUserByDocumentId } from "./UserManagement"
 
 export const useUploadComment = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
@@ -28,7 +28,7 @@ export const useUploadComment = () => {
 export const useGetComments = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
     const [firestore,] = useState<Firestore>(getFirestore(firebase))
-    const [, getAuthor] = useGetUserById()
+    const [, getAuthor] = useGetUserByDocumentId()
     const [commentArray, setComments] = useState<{
         author: string
         commentedPost: string

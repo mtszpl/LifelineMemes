@@ -1,17 +1,17 @@
-import IconButton from "@mui/material/IconButton"
 import Typography from "@mui/material/Typography"
 import { Box, useTheme } from "@mui/system"
 import { tokens } from "../Theme"
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { Link } from "react-router-dom";
 import UserComponent from "../Components/UserComponent";
 import AppBar from "@mui/material/AppBar";
 
 type Props = {
   onLogoutCallback: Function
+  userImg: string
+  user: any
 }
 
-export default function Topbar({ onLogoutCallback }: Props) {
+export default function Topbar({ onLogoutCallback, user }: Props) {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
 
@@ -34,7 +34,7 @@ export default function Topbar({ onLogoutCallback }: Props) {
             <Typography variant="h3" color={colors.white[200]}>Lifeline Memes</Typography>
           </Box>
         </Link>
-        <UserComponent onLogoutCallback={onLogoutCallback} />
+        <UserComponent onLogoutCallback={onLogoutCallback} userImg={user.profileImg} user={user}/>
       </Box>
     </AppBar>
   )

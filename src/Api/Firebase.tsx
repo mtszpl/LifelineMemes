@@ -37,7 +37,7 @@ export const pushImageToMemeStore = async (image: File, callback?: Function) => 
 export const getImageFromProfileImgStore = async (url: string, imageSetterCallback?: Function) => {
     if(url === (undefined || "")){
         imageSetterCallback !== undefined && imageSetterCallback("")
-        return
+        return null
     }
     const storage = getStorage()
     return getDownloadURL(ref(storage, "profileImg/" + url))
@@ -47,11 +47,10 @@ export const getImageFromProfileImgStore = async (url: string, imageSetterCallba
         }).catch(e => console.log(e.message))
 }
 
-export const pushImageToProfileImgStore = async (image: File, callback?: Function) => {
+export const pushImageToProfileImgStore = async (image: File) => {
     const storage = getStorage()
     const storageRef = ref(storage, "profileImg/" + image.name)
     return uploadBytes(storageRef, image).then(snapshot => {
-        callback !== undefined && callback(snapshot.ref.name)
         return snapshot
     })
 }

@@ -28,7 +28,7 @@ function App() {
   const createUser = useRegisterUser()
   const reroute = useNavigate()
 
-  const handleLogin = (newUser: { username: string, profileImg: string, role: string }) => {
+  const handleLogin = (newUser: { id: string, username: string, profileImg: string, role: string }) => {
     setCurrentUser(newUser)
     getImageFromProfileImgStore(newUser.profileImg, (imgUrl: string) => {
       setCurrentUser(currentUser => ({
@@ -39,7 +39,7 @@ function App() {
   }
 
   const handleLogout = () => {
-    setCurrentUser({ username: "", profileImg: "", role: "UNLOGGED" })
+    setCurrentUser({ id: "", username: "", profileImg: "", role: "UNLOGGED" })
     reroute("/")
   }
 
@@ -47,13 +47,18 @@ function App() {
     createUser(newUserName, newUserPassword)
       .then((data) => {
         reroute("/")
-        data === true &&
-          handleLogin({
-            username: newUserName,
-            profileImg: 'defaultAvatar.png',
-            role: "USER"
-          })
+        handleLogin({
+          id: data.id.toString(),
+          username: newUserName,
+          profileImg: 'defaultAvatar.png',
+          role: "USER"
+        })
       })
+  }
+
+  const updateCurrentUser = (newUserData: any) => {
+    setCurrentUser(newUserData)
+    reroute(`/profilemanagement/${newUserData.username}`)
   }
 
   return (
@@ -63,14 +68,14 @@ function App() {
           <ThemeProvider theme={theme}>
             <CssBaseline />
             <main className='content'>
-              <Topbar onLogoutCallback={handleLogout} />
+              <Topbar onLogoutCallback={handleLogout} userImg={currentUser.profileImg} user={currentUser}/>
               <Container sx={{ bgcolor: colors.primary[300], display: "flex", flexDirection: "column", alignItems: "center" }}>
                 <Routes>
                   <Route path="/" element={<MainMemeView />} />
                   <Route path="/:id/:title" element={<MemeView />} />
                   <Route path="/login" element={<Login onLoginCallback={handleLogin} />} />
                   <Route path="/createuser" element={<CreateUser onUserCreateCallback={handleCreateUser} />} />
-                  <Route path="/profilemanagement/:username" element={<UserDashboard />} />
+                  <Route path="/profilemanagement/:username" element={<UserDashboard onUserDataChangeCallback={updateCurrentUser}/>} />
                   <Route path="/creator" element={<MemeCreate author={currentUser.username} />} />
                   <Route path='*' element={<Page404 />} />
                 </Routes>

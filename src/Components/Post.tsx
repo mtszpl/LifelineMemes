@@ -1,16 +1,16 @@
-import { Paper, Typography, useTheme } from '@mui/material'
+import { Typography, useTheme } from '@mui/material'
 import { Box } from '@mui/system'
 import { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom'
 import { tokens } from '../Theme'
-import { useGetUser } from '../Api/UserManagement';
+import { useGetUserByDocumentId } from '../Api/UserManagement';
 
 type Props = {
     id: number
     title: string
     clearTitle?: string
     dataLink: string
-    authorName: string
+    authorId: string
     timestamp: number
     tags?: string
 } | {
@@ -18,7 +18,7 @@ type Props = {
     title?: string
     clearTitle: string
     dataLink: string
-    authorName: string
+    authorId: string
     timestamp: number
     tags?: string
 };
@@ -27,7 +27,7 @@ export default function Post(props: Props) {
     const [postData, setPostData] = useState(props)
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
-    const [author, updateAuthor] = useGetUser()
+    const [author, updateAuthor] = useGetUserByDocumentId()
     const { id, title } = useParams()
 
     useEffect(() => {
@@ -40,11 +40,11 @@ export default function Post(props: Props) {
             title: props.title,
             clearTitle: nClearTitle,
             dataLink: props.dataLink,
-            authorName: props.authorName,
+            authorId: props.authorId.trim(),
             timestamp: props.timestamp,
             tags: props.tags,
         })
-        updateAuthor(props.authorName)
+        updateAuthor(props.authorId.trim())
     }, [])
 
 
@@ -53,7 +53,7 @@ export default function Post(props: Props) {
             sx={{
                 width: { sm: '100%', md: 0.9 },
             }}>
-            <Link style={{ textDecoration: "none", width: "10%" }} to={`/profilemanagement/${postData.authorName}`}>
+            <Link style={{ textDecoration: "none", width: "10%" }} to={`/profilemanagement/${author.username}`}>
                 <Box>
                     <Box
                         component="img"
@@ -85,9 +85,9 @@ export default function Post(props: Props) {
                     </Box>
                 )
                 }
-                <Link style={{ textDecoration: "none", color: "inherit" }} to={`/profilemanagement/${postData.authorName}`}>
+                <Link style={{ textDecoration: "none", color: "inherit" }} to={`/profilemanagement/${author.username}`}>
                     <Box bgcolor={colors.indigo[900]} sx={{ cursor: "pointer" }}>
-                        <Typography variant='h6'>{postData.authorName}</Typography>
+                        <Typography variant='h6'>{author.username}</Typography>
                     </Box>
                 </Link>
 

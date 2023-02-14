@@ -7,8 +7,11 @@ import Post from '../Components/Post'
 import { useGetUser, UserContext } from '../Api/UserManagement'
 import ProfileSettings from '../Components/ProfileSettings'
 
+type Props = {
+    onUserDataChangeCallback: Function
+}
 
-export default function UserDashboard() {
+export default function UserDashboard({ onUserDataChangeCallback }: Props) {
 
     const { username } = useParams()
 
@@ -43,14 +46,14 @@ export default function UserDashboard() {
                             >
                                 <Typography variant='h2'>{owner.username}</Typography>
                                 {owner.username === loggedUser.username && (
-                                    <ProfileSettings />
+                                    <ProfileSettings onUserDataChangeCallback={onUserDataChangeCallback}/>
                                 )}
                             </Box>
                         </Box>
                         <Typography variant='h3'>User Memes</Typography>
                         <Box width="80%">
                             {memes.map(meme => {
-                                return (<Post key={meme.id} id={meme.id} title={meme.title} authorName={meme.author} dataLink={meme.dataLink}
+                                return (<Post key={meme.id} id={meme.id} title={meme.title} authorId={meme.author} dataLink={meme.dataLink}
                                     timestamp={meme.timestamp === undefined ? meme!.id : meme.timestamp} />)
                             })}
                         </Box>

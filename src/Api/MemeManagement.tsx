@@ -3,6 +3,7 @@ import { Firestore, getFirestore, CollectionReference, DocumentData, collection,
 import { useContext, useState } from "react"
 import { collectionData } from "rxfire/firestore"
 import { FirebaseContext, getImageFromMemeStore, pushImageToMemeStore } from "./Firebase"
+import { useGetUserDocID } from "./UserManagement"
 
 export const useGetMemes = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
@@ -15,13 +16,18 @@ export const useGetMemes = () => {
         timestamp: number
     }[]>([])
 
+    const getUserId = useGetUserDocID()
+
     const getMemes = (username?: string) => {
         const memeData: CollectionReference<DocumentData> = collection(firestore, "/Memes")
         return collectionData(query(memeData))
-        .subscribe(memes => {
+        .subscribe(async memes => {
                 setMemeArray([])
-                if (username !== undefined)
-                    memes = memes.filter(meme => meme.author === username)
+                if (username !== undefined){
+                    await getUserId(username).then((id) => 
+                        memes = memes.filter(meme => meme.author === id)
+                    )
+                }
                 if (memes.length === 0) 
                     return                
                 else {

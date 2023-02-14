@@ -7,7 +7,7 @@ import Post from '../Components/Post'
 import { tokens } from '../Theme'
 import { useGetComments } from '../Api/CommentManagement'
 import Comment from '../Components/Comment'
-import { useGetUserById } from '../Api/UserManagement'
+import { useGetUserByDocumentId } from '../Api/UserManagement'
 
 type Props = {
 }
@@ -27,7 +27,7 @@ export default function MemeView(props: Props) {
     tags?: string
   }>()
   const [, getMeme] = useGetOneMeme()
-  const [, getAuthor] = useGetUserById()
+  const [, getAuthor] = useGetUserByDocumentId()
 
   const [, updateComments] = useGetComments()
   const [comments, setComments] = useState<{
@@ -67,10 +67,10 @@ export default function MemeView(props: Props) {
       }}
     >
       {(meme !== undefined && meme.authorName !== undefined) && (
-        <Post id={Number(meme!.id)} title={meme!.title} clearTitle={meme!.title} dataLink={meme!.dataLink} authorName={meme!.authorName}
+        <Post id={Number(meme!.id)} title={meme!.title} clearTitle={meme!.title} dataLink={meme!.dataLink} authorId={meme!.authorName}
           timestamp={meme.timestamp === undefined ? meme!.id : meme.timestamp} />
       )}
-      <Link to="/">
+      <Link to="/" style={{textDecoration: "none"}}>
         <Button sx={{ bgcolor: colors.red[500], height: "4em", width: "100%" }}>
           <Typography color={colors.white[100]}>Back To Main Page</Typography>
         </Button>

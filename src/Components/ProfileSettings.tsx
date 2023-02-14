@@ -3,7 +3,11 @@ import { ChangeEvent, ChangeEventHandler, useContext, useState } from 'react'
 import { UserContext, useUpdateUser } from '../Api/UserManagement'
 import { tokens } from '../Theme'
 
-export default function ProfileSettings() {
+type Props = {
+    onUserDataChangeCallback: Function
+}
+
+export default function ProfileSettings({ onUserDataChangeCallback }: Props) {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
 
@@ -28,16 +32,18 @@ export default function ProfileSettings() {
             setNewProfileImg(e.target.files[0])
     }
 
-    const updateProfileSettings = (e: any) => {
-        updateUser(loggedUser.username, newUserName, newPassword, newProfileImg, undefined, (newUser: any) => {
+    const updateProfileSettings = () => {
+        updateUser(loggedUser.username, newUserName, newPassword, newProfileImg).then(newUser => {
+            newUser !== undefined &&
             setUser(
                 {
+                    id: user.id,
                     username: newUser.username,
                     profileImg: newUser.profileImg,
                     role: newUser.role
-                }
-            )
-        })
+                })                
+                onUserDataChangeCallback(newUser)
+            })
     }
 
     return (
@@ -56,24 +62,24 @@ export default function ProfileSettings() {
                 <Box display="flex" alignItems="center" alignSelf="stretch">
                     <TextField
                         defaultValue={newUserName}
-                        sx={{ ml: "1em", flexGrow: "2" }}
+                        sx={{ mr: "1em", flexGrow: "2" }}
                         onChange={(e) => changeCurrentUsername(e)}
                     /> <Typography>Change username</Typography>
                 </Box>
                 <Box display="flex" alignItems="center" alignSelf="stretch">
                     <TextField
                         defaultValue={newPassword}
-                        sx={{ ml: "1em", flexGrow: "2" }}
+                        sx={{ mr: "1em", flexGrow: "2" }}
                         onChange={(e) => changeCurrentPassword(e)}
                     /> <Typography>Change password</Typography>
                 </Box>
-                <Box display="flex" width="50%" justifyContent="space-between" flexDirection={{xs: "column", sm: "column", md: "row" }}>
+                <Box display="flex" width="50%" justifyContent="space-between" flexDirection={{ xs: "column", sm: "column", md: "row" }}>
                     <input type="file" onChange={(e) => changeProfileImg(e)} />
                     <Typography variant="h5" ml="5%">Change profile picture</Typography>
                 </Box>
                 <Button
                     sx={{ backgroundColor: colors.red[500], borderRadius: "3px", margin: "2%", minWidth: "100px" }}
-                    onClick={(e) => updateProfileSettings(e)}
+                    onClick={() => updateProfileSettings()}
                 >
                     <Typography variant='h4' color={colors.white[500]}>
                         Change

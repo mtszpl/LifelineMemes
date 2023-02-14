@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import { Box, Button, TextField, Typography, useTheme } from '@mui/material'
 import { useState } from 'react';
-import { useLogIn, } from '../Api/UserManagement';
+import { useLogIn } from '../Api/UserManagement';
 import { tokens } from '../Theme';
 
 type Props = {
@@ -17,21 +17,14 @@ export default function Login({ onLoginCallback }: Props) {
     const [password, setPassword] = useState<string>("")
 
     const [, logIn] = useLogIn()
-    const [, setUser] = useState({ username: "", profileImg: "", role: "UNLOGGED" })
     const reroute = useNavigate()
 
-    const handleClick = (e: any) => {
-        logIn(userName, password,
-            (newUser: { username: string, profileImg: string, role: string }) => {
-                setUser(user => ({
-                    ...user,
-                    username: newUser.username,
-                    profileImg: newUser.profileImg,
-                    role: newUser.role
-                }))
-                onLoginCallback(newUser)
-                reroute("/")
-            })
+    const handleClick = () => {
+        logIn(userName, password).then(newUser => {
+            onLoginCallback(newUser)
+            reroute("/")
+        })
+            
     }
 
     const handleUserChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -74,7 +67,7 @@ export default function Login({ onLoginCallback }: Props) {
                         m: "1em",
                         flexGrow: { xs: 2, sm: 2 }
                     }}
-                    onClick={(e) => handleClick(e)}>
+                    onClick={() => handleClick()}>
                     <Typography color={colors.white[100]} variant="h3">Log In</Typography>
                 </Button>
             </Box>

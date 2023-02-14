@@ -1,20 +1,24 @@
 import { Box, IconButton, useTheme } from "@mui/material"
 import Typography from "@mui/material/Typography"
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import { useContext } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { tokens } from "../Theme"
-import { UserContext } from "../Api/UserManagement"
+import { useEffect, useState } from "react";
+import { getImageFromProfileImgStore } from "../Api/Firebase";
 
 type Props = {
     onLogoutCallback: Function
+    userImg: string,
+    user: any
 }
 
-export default function UserComponent({ onLogoutCallback }: Props) {
+export default function UserComponent({ onLogoutCallback, userImg, user }: Props) {
     const theme = useTheme()
     const colors = tokens(theme.palette.mode)
-    const user = useContext(UserContext)
     const reroute = useNavigate()
+    const [imageUrl, setImageUrl] = useState<string>("")
+
+    useEffect(() => { getImageFromProfileImgStore(userImg).then(url => { url !== undefined && setImageUrl(url!)}) }, [userImg])
 
     const handleLoggedClick = () => {
         reroute(`/profilemanagement/${user.username}`)
@@ -55,12 +59,11 @@ export default function UserComponent({ onLogoutCallback }: Props) {
                             </Typography>
                             <Box
                                 component="img"
-                                alt="user-profile-img"
                                 sx={{
                                     width: "50px",
                                     aspectRatio: "1",
                                 }}
-                                src={user.profileImg}
+                                src={imageUrl}
                             />
                         </Box>
                         <IconButton type="button"

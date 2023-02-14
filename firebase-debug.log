@@ -1,0 +1,37 @@
+[debug] [2023-02-14T11:49:16.592Z] ----------------------------------------------------------------------
+[debug] [2023-02-14T11:49:16.595Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\matip\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2023-02-14T11:49:16.596Z] CLI Version:   11.18.0
+[debug] [2023-02-14T11:49:16.597Z] Platform:      win32
+[debug] [2023-02-14T11:49:16.597Z] Node Version:  v18.12.0
+[debug] [2023-02-14T11:49:16.598Z] Time:          Tue Feb 14 2023 12:49:16 GMT+0100 (czas środkowoeuropejski standardowy)
+[debug] [2023-02-14T11:49:16.599Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-14T11:49:16.606Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2023-02-14T11:49:16.919Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-14T11:49:16.921Z] > authorizing via signed-in user (matiplonka@gmail.com)
+[debug] [2023-02-14T11:49:16.922Z] [iam] checking project memepageproject-5dadd for permissions ["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]
+[debug] [2023-02-14T11:49:16.925Z] > refreshing access token with scopes: []
+[debug] [2023-02-14T11:49:16.929Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-02-14T11:49:16.930Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-14T11:49:17.214Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-02-14T11:49:17.215Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-14T11:49:17.229Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/memepageproject-5dadd:testIamPermissions [none]
+[debug] [2023-02-14T11:49:17.230Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/memepageproject-5dadd:testIamPermissions x-goog-quota-user=projects/memepageproject-5dadd
+[debug] [2023-02-14T11:49:17.230Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/memepageproject-5dadd:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2023-02-14T11:49:17.604Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2023-02-14T11:49:17.604Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2023-02-14T11:49:18.369Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/memepageproject-5dadd:testIamPermissions 200
+[debug] [2023-02-14T11:49:18.369Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/memepageproject-5dadd:testIamPermissions {"permissions":["datastore.indexes.create","datastore.indexes.delete","datastore.indexes.list","datastore.indexes.update","firebase.projects.get","firebasehosting.sites.update","firebaserules.releases.create","firebaserules.releases.update","firebaserules.rulesets.create"]}
+[debug] [2023-02-14T11:49:18.372Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/memepageproject-5dadd [none]
+[debug] [2023-02-14T11:49:18.778Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/memepageproject-5dadd 200
+[debug] [2023-02-14T11:49:18.778Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/memepageproject-5dadd {"projectId":"memepageproject-5dadd","projectNumber":"909484227053","displayName":"LifelineMemes","name":"projects/memepageproject-5dadd","resources":{"hostingSite":"memepageproject-5dadd","storageBucket":"memepageproject-5dadd.appspot.com","locationId":"europe-west"},"state":"ACTIVE","etag":"1_78df551f-0d89-4cf3-aec9-c331e6419fe6"}
+[info] 
+[info] === Deploying to 'memepageproject-5dadd'...
+[info] 
+[info] i  deploying storage, firestore, hosting 
+[debug] [2023-02-14T11:49:18.843Z] >>> [apiv2][query] GET https://appengine.googleapis.com/v1/apps/memepageproject-5dadd [none]
+[debug] [2023-02-14T11:49:19.271Z] <<< [apiv2][status] GET https://appengine.googleapis.com/v1/apps/memepageproject-5dadd 200
+[debug] [2023-02-14T11:49:19.272Z] <<< [apiv2][body] GET https://appengine.googleapis.com/v1/apps/memepageproject-5dadd {"name":"apps/memepageproject-5dadd","id":"memepageproject-5dadd","authDomain":"gmail.com","locationId":"europe-west","codeBucket":"staging.memepageproject-5dadd.appspot.com","servingStatus":"SERVING","defaultHostname":"memepageproject-5dadd.ew.r.appspot.com","defaultBucket":"memepageproject-5dadd.appspot.com","serviceAccount":"memepageproject-5dadd@appspot.gserviceaccount.com","gcrDomain":"eu.gcr.io","databaseType":"CLOUD_FIRESTORE","featureSettings":{"splitHealthChecks":true,"useContainerOptimizedOs":true}}
+[info] i  firebase.storage: checking storage.rules for compilation errors... 
+[debug] [2023-02-14T11:49:19.283Z] >>> [apiv2][query] POST https://firebaserules.googleapis.com/v1/projects/memepageproject-5dadd:test [none]
+[debug] [2023-02-14T11:49:19.283Z] >>> [apiv2][body] POST https://firebaserules.googleapis.com/v1/projects/memepageproject-5dadd:test [omitted]
