@@ -29,7 +29,8 @@ export const useLogIn = () => {
             return
         const q: Query<DocumentData> = query(userData, where("username", "==", username))
         return getDocs(q).then(async documents => {
-            let user: any
+            let user: any = undefined
+            let tmp: any
             let i: number = 0
             documents.forEach(document => {
                 if (i++ === 0)
@@ -43,12 +44,14 @@ export const useLogIn = () => {
                 await hash(password).then(passwordHash => {
                     if (user.password === passwordHash) {
                         setUserRole(user.Role)
-                        return user
+                        return tmp = user
                     }
-                    else
+                    else{
                         alert("Incorrect password")
+                        return tmp
+                    }
                 })
-            return user
+            return tmp
         })     
     }
 

@@ -21,7 +21,8 @@ export default function Login({ onLoginCallback }: Props) {
 
     const handleClick = () => {
         logIn(userName, password).then(newUser => {
-            onLoginCallback(newUser)
+            newUser !== undefined &&
+                onLoginCallback(newUser)
             reroute("/")
         })
             

@@ -112,6 +112,7 @@ export const useGetOneMeme = () => {
 export const useUploadMeme = () => {
     const firebase: FirebaseApp = useContext(FirebaseContext)
     const [firestore,] = useState<Firestore>(getFirestore(firebase))
+    const getUser = useGetUserDocID()
 
     const uploadMeme = (
         title: string,
@@ -119,14 +120,17 @@ export const useUploadMeme = () => {
         author: string,
     ) => {
         pushImageToMemeStore(dataLink).then(snapshot => {
-            addDoc(collection(firestore, "Memes"), {
-                Title: title,
-                clearTitle: title.replace(/[^\w\s']|_/g, "")
+            getUser(author).then(authorId => {
+
+                addDoc(collection(firestore, "Memes"), {
+                    Title: title,
+                    clearTitle: title.replace(/[^\w\s']|_/g, "")
                     .replace(/\s+/g, "-"),
-                dataLink: dataLink.name,
-                author: author,
-                timestamp: Date.now()
-            })            
+                    dataLink: dataLink.name,
+                    author: authorId,
+                    timestamp: Date.now()
+                })            
+            })
         })
     }
     return uploadMeme
